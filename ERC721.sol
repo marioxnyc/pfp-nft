@@ -3,13 +3,12 @@
 
 pragma solidity ^0.8.0;
 
-import "./interface/IERC721.sol";
-import "./interface/IERC721Receiver.sol";
-import "./interface/IERC721Metadata.sol";
-import "./utils/Address.sol";
-import "./utils/Context.sol";
-import "./utils/Strings.sol";
-import "./utils/Introspection-ERC165.sol";
+import "https://github.com/marioxnyc/pfp-nft/blob/main/interface/IERC721.sol";
+import "https://github.com/marioxnyc/pfp-nft/blob/main/interface/IERC721Receiver.sol";
+import "https://github.com/marioxnyc/pfp-nft/blob/main/interface/IERC721Metadata.sol";
+import "https://github.com/marioxnyc/pfp-nft/blob/main/utils/Address.sol";
+import "https://github.com/marioxnyc/pfp-nft/blob/main/utils/Context.sol";
+import "https://github.com/marioxnyc/pfp-nft/blob/main/utils/Introspection-ERC165.sol";
 
 /**
  * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including
@@ -18,7 +17,6 @@ import "./utils/Introspection-ERC165.sol";
  */
 contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     using Address for address;
-    using Strings for uint256;
 
     // Mapping from token ID to owner address
     mapping(uint256 => address) private _owners;
