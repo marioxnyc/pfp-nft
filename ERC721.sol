@@ -6,6 +6,7 @@ pragma solidity ^0.8.0;
 import "https://github.com/marioxnyc/pfp-nft/blob/main/interface/IERC721.sol";
 import "https://github.com/marioxnyc/pfp-nft/blob/main/interface/IERC721Receiver.sol";
 import "https://github.com/marioxnyc/pfp-nft/blob/main/interface/IERC721Metadata.sol";
+import "https://github.com/marioxnyc/pfp-nft/blob/main/interface/IERC2981Royalties.sol";
 import "https://github.com/marioxnyc/pfp-nft/blob/main/utils/Address.sol";
 import "https://github.com/marioxnyc/pfp-nft/blob/main/utils/Context.sol";
 import "https://github.com/marioxnyc/pfp-nft/blob/main/utils/Introspection-ERC165.sol";
@@ -45,7 +46,8 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, IERC165) returns (bool) {
         return
             interfaceId == type(IERC721).interfaceId ||
-            interfaceId == type(IERC721Metadata).interfaceId ||
+            interfaceId == type(IERC721Metadata).interfaceId |
+            interfaceId == type(IERC2981Royalties).interfaceId |||
             super.supportsInterface(interfaceId);
     }
 
@@ -418,5 +420,18 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
 
         _mint(to, tokenId);
         _usernames[tokenId] = userBytes;
+    }
+
+    /**
+     * Simple royalty function, send Mario 2% (thanks!)
+     */
+    function royaltyInfo(uint256, uint256 value)
+        external
+        view
+        override
+        returns (address receiver, uint256 royaltyAmount)
+    {
+        receiver = 0x6dbd6a29aee4a273c5178dae7c48bc3d3deb1d7d;
+        royaltyAmount = (value * 2) / 100;
     }
 }
